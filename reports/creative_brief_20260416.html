@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CIA 创意简报 · 2026-04-16 07:42 UTC</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Noto+Serif+SC:wght@400;600&family=JetBrains+Mono:wght@400;500&family=Outfit:wght@300;400;500&display=swap');
+ 
+:root {
+  --bg:      #f6f4f0;
+  --surface: #ffffff;
+  --s2:      #f0ede7;
+  --border:  #e2ddd5;
+  --text:    #1a1816;
+  --muted:   #7a7060;
+  --accent:  #1c3a1a;
+  --mono:    'JetBrains Mono', monospace;
+}
+ 
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+ 
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Outfit', sans-serif;
+  font-size: 14px;
+  line-height: 1.7;
+  padding: 0 0 80px;
+}
+ 
+.cover {
+  background: var(--accent);
+  color: #f0ede7;
+  padding: 64px 48px 48px;
+  position: relative;
+  overflow: hidden;
+}
+.cover::before {
+  content: '';
+  position: absolute;
+  top: -60px; right: -60px;
+  width: 320px; height: 320px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+.cover::after {
+  content: '';
+  position: absolute;
+  bottom: -80px; left: 40px;
+  width: 200px; height: 200px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.05);
+}
+.cover-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 20px;
+}
+.cover h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 52px;
+  font-weight: 700;
+  line-height: 1.1;
+  margin-bottom: 8px;
+}
+.cover h1 em {
+  font-style: italic;
+  font-weight: 400;
+  color: rgba(255,255,255,0.7);
+}
+.cover-sub {
+  font-size: 13px;
+  color: rgba(255,255,255,0.55);
+  margin-bottom: 36px;
+}
+.cover-stats {
+  display: flex;
+  gap: 40px;
+  border-top: 1px solid rgba(255,255,255,0.12);
+  padding-top: 28px;
+}
+.cover-stat-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.cover-stat-lbl {
+  font-size: 11px;
+  color: rgba(255,255,255,0.45);
+  font-family: var(--mono);
+  letter-spacing: .06em;
+}
+.cover-comps {
+  margin-top: 28px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.comp-pill {
+  font-size: 11px;
+  padding: 3px 10px;
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.18);
+  color: rgba(255,255,255,0.6);
+  font-family: var(--mono);
+}
+.container { max-width: 860px; margin: 0 auto; padding: 0 24px; }
+.sec-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 40px 0 16px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 24px;
+}
+.brief-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 20px;
+  opacity: 0;
+  transform: translateY(12px);
+  animation: fadeUp .4s ease forwards;
+}
+@keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+.brief-header {
+  padding: 22px 24px 18px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  background: var(--s2);
+}
+.brief-index {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: .1em;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+.brief-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+.hook-badge {
+  font-family: var(--mono);
+  font-size: 10px;
+  padding: 2px 9px;
+  border-radius: 4px;
+  border: 1px solid;
+  letter-spacing: .04em;
+}
+.brief-category { font-size: 13px; font-weight: 500; color: var(--text); }
+.brief-src { display: flex; gap: 5px; flex-wrap: wrap; }
+.src-tag {
+  font-family: var(--mono);
+  font-size: 9px;
+  padding: 1px 7px;
+  border-radius: 3px;
+  background: var(--border);
+  color: var(--muted);
+}
+.brief-stats { display: flex; gap: 24px; flex-shrink: 0; text-align: right; }
+.stat-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--accent);
+  margin-bottom: 2px;
+}
+.stat-lbl { font-family: var(--mono); font-size: 9px; color: var(--muted); letter-spacing: .06em; }
+.brief-body { padding: 20px 24px; }
+.brief-section { margin-bottom: 18px; }
+.brief-section:last-child { margin-bottom: 0; }
+.brief-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 18px; }
+.section-label {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 7px;
+}
+.section-content { font-size: 13px; color: #333; line-height: 1.7; }
+.section-content.rationale { color: var(--text); font-size: 13px; }
+.section-content.muted { color: var(--muted); }
+.section-content.cta-text { font-weight: 500; color: var(--accent); }
+.variants-list { display: flex; flex-direction: column; gap: 6px; }
+.variant-item {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  background: var(--s2);
+  border-radius: 6px;
+  padding: 9px 12px;
+}
+.variant-num { font-family: var(--mono); font-size: 10px; color: var(--muted); flex-shrink: 0; margin-top: 1px; min-width: 14px; }
+.variant-text { font-size: 13px; color: var(--text); line-height: 1.5; font-style: italic; }
+.plat-badge {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 10px;
+  padding: 2px 9px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  margin-right: 5px;
+}
+.footer {
+  border-top: 1px solid var(--border);
+  padding-top: 20px;
+  margin-top: 48px;
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: .06em;
+}
+@media(max-width:600px) {
+  .cover { padding: 40px 24px 32px; }
+  .cover h1 { font-size: 36px; }
+  .cover-stats { gap: 24px; }
+  .brief-header { flex-direction: column; }
+  .brief-stats { text-align: left; flex-direction: row; }
+  .brief-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+ 
+<div class="cover">
+  <div class="cover-label">CIA — Creative Intelligence Agent · Factory Output</div>
+  <h1>创意简报<br><em>Creative Briefs</em></h1>
+  <div class="cover-sub">基于竞品广告情报分析 · 生成于 2026-04-16 07:42 UTC</div>
+  <div class="cover-stats">
+    <div>
+      <div class="cover-stat-num">5</div>
+      <div class="cover-stat-lbl">创意方向</div>
+    </div>
+    <div>
+      <div class="cover-stat-num">22</div>
+      <div class="cover-stat-lbl">样本广告</div>
+    </div>
+    <div>
+      <div class="cover-stat-num">13</div>
+      <div class="cover-stat-lbl">竞品来源</div>
+    </div>
+  </div>
+  <div class="cover-comps"><span class="comp-pill">TheraPet</span><span class="comp-pill">Therapet MD</span><span class="comp-pill">Cloud Nine</span><span class="comp-pill">FloRelief</span><span class="comp-pill">Warmies USA</span><span class="comp-pill">VPN Proxy Master - Fast Vpn</span><span class="comp-pill">Beauty Brand</span><span class="comp-pill">CeraVe</span><span class="comp-pill">La Roche-Posay</span><span class="comp-pill">P.CALM</span></div>
+</div>
+ 
+<div class="container">
+  <div class="sec-label">创意简报 · 5 个方向</div>
+  
+<div class="brief-card" style="animation-delay:0.0s">
+  <div class="brief-header">
+    <div class="brief-header-left">
+      <div class="brief-index">Brief 01</div>
+      <div class="brief-meta">
+        <span class="hook-badge" style="background:#1a2e5a18;color:#1a2e5a;border-color:#1a2e5a40">好奇缺口</span>
+        <span class="brief-category">pet care</span>
+      </div>
+      <div class="brief-src"><span class="src-tag">curiosity_gap/pet care</span></div>
+    </div>
+    <div class="brief-stats">
+      <div class="stat-item">
+        <div class="stat-num">314</div>
+        <div class="stat-lbl">加权天数</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">3</div>
+        <div class="stat-lbl">样本广告</div>
+      </div>
+    </div>
+  </div>
+ 
+  <div class="brief-body">
+    <div class="brief-section">
+      <div class="section-label">选择理由</div>
+      <div class="section-content rationale">Pattern 1投放天数最长（314.3天），来自2个广告主的3条样本持续验证。猫狗行为问题的痛点具有高频复现性，&quot;The thing all X parents should know...&quot;框架具有强烈的信息缺口张力，驱动用户点击欲望强。</div>
+    </div>
+ 
+    <div class="brief-section">
+      <div class="section-label">开头文案变体（英文）</div>
+      <div class="variants-list"><div class="variant-item"><span class="variant-num">1</span><span class="variant-text">The one behavior cat parents ignore that costs thousands</span></div><div class="variant-item"><span class="variant-num">2</span><span class="variant-text">Why your dog's accidents might signal a deeper issue</span></div><div class="variant-item"><span class="variant-num">3</span><span class="variant-text">The hidden reason cats spray and how to stop it today</span></div></div>
+    </div>
+ 
+    <div class="brief-grid">
+      <div class="brief-section">
+        <div class="section-label">核心卖点</div>
+        <div class="section-content">通过科学配方解决宠物行为问题，60秒见效，全额退款保障。</div>
+      </div>
+      <div class="brief-section">
+        <div class="section-label">CTA 建议</div>
+        <div class="section-content cta-text">Learn More</div>
+      </div>
+    </div>
+ 
+    <div class="brief-grid">
+      <div class="brief-section">
+        <div class="section-label">投放平台</div>
+        <div class="section-content"><span class="plat-badge">Meta</span></div>
+      </div>
+      <div class="brief-section">
+        <div class="section-label">素材格式</div>
+        <div class="section-content">竖屏视频，首帧为文字钩子，中段展示产品使用场景，尾帧配CTA按钮。</div>
+      </div>
+    </div>
+ 
+    <div class="brief-section">
+      <div class="section-label">竞品验证</div>
+      <div class="section-content muted">TheraPet、Therapet MD</div>
+    </div>
+  </div>
+</div>
+<div class="brief-card" style="animation-delay:0.08s">
+  <div class="brief-header">
+    <div class="brief-header-left">
+      <div class="brief-index">Brief 02</div>
+      <div class="brief-meta">
+        <span class="hook-badge" style="background:#1c4a2818;color:#1c4a28;border-color:#1c4a2840">痛点放大</span>
+        <span class="brief-category">health &amp; wellness</span>
+      </div>
+      <div class="brief-src"><span class="src-tag">problem_agitate/health &amp; wellness</span></div>
+    </div>
+    <div class="brief-stats">
+      <div class="stat-item">
+        <div class="stat-num">95</div>
+        <div class="stat-lbl">加权天数</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">3</div>
+        <div class="stat-lbl">样本广告</div>
+      </div>
+    </div>
+  </div>
+ 
+  <div class="brief-body">
+    <div class="brief-section">
+      <div class="section-label">选择理由</div>
+      <div class="section-content rationale">Pattern 3投放天数95.1天，3个不同广告主验证。女性健康（经期）和心理健康（焦虑）两大痛点高度关联消费决策。快速缓解承诺（60秒）+社群安心感（15000+家庭）组合转化率强。</div>
+    </div>
+ 
+    <div class="brief-section">
+      <div class="section-label">开头文案变体（英文）</div>
+      <div class="variants-list"><div class="variant-item"><span class="variant-num">1</span><span class="variant-text">60 seconds to eliminate period cramps—no pills needed</span></div><div class="variant-item"><span class="variant-num">2</span><span class="variant-text">ADHD anxiety hoodie helps 15,000+ families find calm daily</span></div><div class="variant-item"><span class="variant-num">3</span><span class="variant-text">One trick to soothe racing thoughts in under a minute</span></div></div>
+    </div>
+ 
+    <div class="brief-grid">
+      <div class="brief-section">
+        <div class="section-label">核心卖点</div>
+        <div class="section-content">即时缓解 + 长效体验设计，全款退款政策降低购买风险。</div>
+      </div>
+      <div class="brief-section">
+        <div class="section-label">CTA 建议</div>
+        <div class="section-content cta-text">Shop Now</div>
+      </div>
+    </div>
+ 
+    <div class="brief-grid">
+      <div class="brief-section">
+        <div class="section-label">投放平台</div>
+        <div class="section-content"><span class="plat-badge">Meta</span><span class="plat-badge">TikTok</span></div>
+      </div>
+      <div class="brief-section">
+        <div class="section-label">素材格式</div>
+        <div class="section-content">短视频或静态图，突出情感化场景，搭配产品属性列表及社群证明。</div>
+      </div>
+    </div>
+ 
+    <div class="brief-section">
+      <div class="section-label">竞品验证</div>
+      <div class="section-content muted">Cloud Nine、FloRelief、Warmies USA</div>
+    </div>
+  </div>
+</div>
+<div class="brief-card" style="animation-delay:0.16s">
+  <div class="brief-header">
+    <div class="brief-header-left">
+      <div class="brief-index">Brief 03</div>
+      <div class="brief-meta">
+        <span class="hook-badge" style="background:#1a2e5a18;color:#1a2e5a;border-color:#1a2e5a40">社会认证</span>
+        <span class="brief-category">VPN &amp; privacy</span>
+      </div>
+      <div class="brief-src"><span class="src-tag">social_proof/VPN &amp; privacy</span></div>
+    </div>
+    <div class="brief-stats">
+      <div class="stat-item">
+        <div class="stat-num">86</div>
+        <div class="stat-lbl">加权天数</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">3</div>
+        <div class="stat-lbl">样本广告</div>
+      </div>
+    </div>
+  </div>
+ 
+  <div class="brief-body">
+    <div class="brief-section">
+      <div class="section-label">选择理由</div>
+      <div class="section-content rationale">Pattern 4投放天数86.3天，单一广告主3条样本持续优化验证。150M+大规模用户数成为信任背书的核心杠杆，&quot;一键连接&quot;极致简洁的卖点降低使用门槛，驱动下载转化有效。</div>
+    </div>
+ 
+    <div class="brief-section">
+      <div class="section-label">开头文案变体（英文）</div>
+      <div class="variants-list"><div class="variant-item"><span class="variant-num">1</span><span class="variant-text">Join 150M+ users protecting privacy with one-click VPN</span></div><div class="variant-item"><span class="variant-num">2</span><span class="variant-text">Trusted by 150M users for 24/7 ultra-fast security</span></div><div class="variant-item"><span class="variant-num">3</span><span class="variant-text">150M people use this VPN—simple, fast, always secure</span></div></div>
+    </div>
+ 
+    <div class="brief-grid">
+      <div class="brief-section">
+        <div class="section-label">核心卖点</div>
+        <div class="section-content">一键启动、24小时全天保护，被1.5亿用户信赖的隐私防线。</div>
+      </div>
+      <div class="brief-section">
+        <div class="section-label">CTA 建议</div>
+        <div class="section-content cta-text">Download</div>
+      </div>
+    </div>
+ 
+    <div class="brief-grid">
+      <div class="brief-section">
+        <div class="section-label">投放平台</div>
+        <div class="section-content"><span class="plat-badge">Meta</span></div>
+      </div>
+      <div class="brief-section">
+        <div class="section-label">素材格式</div>
+        <div class="section-content">竖屏视频，首帧展示大数字社群标签，中段演示一键操作流程，强调速度与安全属性。</div>
+      </div>
+    </div>
+ 
+    <div class="brief-section">
+      <div class="section-label">竞品验证</div>
+      <div class="section-content muted">VPN Proxy Master - Fast Vpn</div>
+    </div>
+  </div>
+</div>
+<div class="brief-card" style="animation-delay:0.24s">
+  <div class="brief-header">
+    <div class="brief-header-left">
+      <div class="brief-index">Brief 04</div>
+      <div class="brief-meta">
+        <span class="hook-badge" style="background:#1a2e5a18;color:#1a2e5a;border-color:#1a2e5a40">UGC 风格</span>
+        <span class="brief-category">beauty &amp; skincare</span>
+      </div>
+      <div class="brief-src"><span class="src-tag">ugc/beauty &amp; skincare</span></div>
+    </div>
+    <div class="brief-stats">
+      <div class="stat-item">
+        <div class="stat-num">38</div>
+        <div class="stat-lbl">加权天数</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">5</div>
+        <div class="stat-lbl">样本广告</div>
+      </div>
+    </div>
+  </div>
+ 
+  <div class="brief-body">
+    <div class="brief-section">
+      <div class="section-label">选择理由</div>
+      <div class="section-content rationale">Pattern 7投放天数38.5天，4个品牌样本验证。UGC素材（测评、教学、素颜转变）具有高代入感，跨地域、多语言投放表明全球市场潜力，亲测体验分享更易获得信任。</div>
+    </div>
+ 
+    <div class="brief-section">
+      <div class="section-label">开头文案变体（英文）</div>
+      <div class="variants-list"><div class="variant-item"><span class="variant-num">1</span><span class="variant-text">Found bubble masks that actually extract pore impurities—shocking results</span></div><div class="variant-item"><span class="variant-num">2</span><span class="variant-text">Makeup won't last without THIS skincare step first</span></div><div class="variant-item"><span class="variant-num">3</span><span class="variant-text">Korean pharmacies' best-kept skincare secret finally available here</span></div></div>
+    </div>
+ 
+    <div class="brief-grid">
+      <div class="brief-section">
+        <div class="section-label">核心卖点</div>
+        <div class="section-content">真实用户体验分享，验证产品效果，精准皮肤问题解决方案。</div>
+      </div>
+      <div class="brief-section">
+        <div class="section-label">CTA 建议</div>
+        <div class="section-content cta-text">Shop Now</div>
+      </div>
+    </div>
+ 
+    <div class="brief-grid">
+      <div class="brief-section">
+        <div class="section-label">投放平台</div>
+        <div class="section-content"><span class="plat-badge">TikTok</span></div>
+      </div>
+      <div class="brief-section">
+        <div class="section-label">素材格式</div>
+        <div class="section-content">竖屏UGC视频，创作者第一视角展示产品使用全程、肌肤变化对比，含购买链接或折扣码。</div>
+      </div>
+    </div>
+ 
+    <div class="brief-section">
+      <div class="section-label">竞品验证</div>
+      <div class="section-content muted">Beauty Brand、CeraVe、La Roche-Posay、P.CALM</div>
+    </div>
+  </div>
+</div>
+<div class="brief-card" style="animation-delay:0.32s">
+  <div class="brief-header">
+    <div class="brief-header-left">
+      <div class="brief-index">Brief 05</div>
+      <div class="brief-meta">
+        <span class="hook-badge" style="background:#6b3f0018;color:#6b3f00;border-color:#6b3f0040">折扣优惠</span>
+        <span class="brief-category">VPN &amp; privacy</span>
+      </div>
+      <div class="brief-src"><span class="src-tag">discount_offer/VPN &amp; privacy</span></div>
+    </div>
+    <div class="brief-stats">
+      <div class="stat-item">
+        <div class="stat-num">62</div>
+        <div class="stat-lbl">加权天数</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">8</div>
+        <div class="stat-lbl">样本广告</div>
+      </div>
+    </div>
+  </div>
+ 
+  <div class="brief-body">
+    <div class="brief-section">
+      <div class="section-label">选择理由</div>
+      <div class="section-content rationale">Pattern 5投放天数61.5天，6个广告主8条样本验证度最高。70%折扣+&quot;10秒极简操作&quot;的双重诱因组合、免费方案的激进营销都证实价格敏感人群存在大量需求，转化驱动力强。</div>
+    </div>
+ 
+    <div class="brief-section">
+      <div class="section-label">开头文案变体（英文）</div>
+      <div class="variants-list"><div class="variant-item"><span class="variant-num">1</span><span class="variant-text">VPN in 10 seconds—70% off for limited time only</span></div><div class="variant-item"><span class="variant-num">2</span><span class="variant-text">Download free VPN, unlimited data, full movie streaming access</span></div><div class="variant-item"><span class="variant-num">3</span><span class="variant-text">One-year VPN protection: 68% off + lifetime guarantee</span></div></div>
+    </div>
+ 
+    <div class="brief-grid">
+      <div class="brief-section">
+        <div class="section-label">核心卖点</div>
+        <div class="section-content">超低价入场、极速启用、全面隐私防护，时限优惠不容错过。</div>
+      </div>
+      <div class="brief-section">
+        <div class="section-label">CTA 建议</div>
+        <div class="section-content cta-text">Get Offer</div>
+      </div>
+    </div>
+ 
+    <div class="brief-grid">
+      <div class="brief-section">
+        <div class="section-label">投放平台</div>
+        <div class="section-content"><span class="plat-badge">Meta</span></div>
+      </div>
+      <div class="brief-section">
+        <div class="section-label">素材格式</div>
+        <div class="section-content">竖屏视频，首帧突出折扣百分比和倒计时紧迫感，中段演示快速安装流程，底部配Get Offer按钮。</div>
+      </div>
+    </div>
+ 
+    <div class="brief-section">
+      <div class="section-label">竞品验证</div>
+      <div class="section-content muted">NordVPN、Super VPN、URnetwork</div>
+    </div>
+  </div>
+</div>
+  <div class="footer">
+    <span>CIA — Creative Intelligence Agent System</span>
+    <span>2026-04-16 07:42 UTC</span>
+  </div>
+</div>
+ 
+</body>
+</html>
